@@ -1,6 +1,6 @@
 # Query Intelligence API
 
-## Assessment Overview
+## Assessment Overview (Images at Last)
 
 **What I built:**
 - A FastAPI backend service with SQLite persistence via SQLAlchemy.
