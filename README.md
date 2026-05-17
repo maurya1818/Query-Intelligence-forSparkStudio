@@ -79,3 +79,17 @@ This project uses a clean modular structure to separate concerns:
 - `services/llm_service.py`: Contains the logic to communicate with the Gemini API to extract structured JSON data from natural language queries.
 
 
+## Post
+<img width="1817" height="876" alt="image" src="https://github.com/user-attachments/assets/11444595-78cf-4be8-a096-7dae11203cf0" />
+## Response
+<img width="1780" height="970" alt="image" src="https://github.com/user-attachments/assets/366c862a-bafd-4358-9eda-7e2c917618b7" />
+## Get (id)
+<img width="1772" height="420" alt="image" src="https://github.com/user-attachments/assets/7322ee48-d1fc-4883-a4a7-52fc4abe7810" />
+## Response
+<img width="1755" height="933" alt="image" src="https://github.com/user-attachments/assets/1ecb349d-3a0f-47e9-92ef-2ea1c92f8c4d" />
+
+
+
+
+
+
