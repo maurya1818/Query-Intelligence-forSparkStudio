@@ -1,0 +1,250 @@
+PRODUCT REQUIREMENTS DOCUMENT
+
+Project Name:
+Query Intelligence API
+
+--------------------------------------------------
+1. OBJECTIVE
+--------------------------------------------------
+
+Build a backend API service that accepts natural language research queries, extracts structured intelligence using an LLM, stores the extracted data, and allows retrieval using a unique ID.
+
+The project should demonstrate:
+- API design
+- LLM integration
+- structured extraction
+- backend engineering
+- clean code organization
+
+--------------------------------------------------
+2. TECH STACK
+--------------------------------------------------
+
+Backend:
+- FastAPI
+- Python 3.11+
+
+Database:
+- SQLite
+
+AI Model:
+- DeepSeek V3 via OpenRouter API
+
+Libraries:
+- fastapi
+- uvicorn
+- sqlalchemy
+- pydantic
+- python-dotenv
+- openai SDK
+
+--------------------------------------------------
+3. FUNCTIONAL REQUIREMENTS
+--------------------------------------------------
+
+3.1 CREATE QUERY ENDPOINT
+
+Route:
+POST /queries
+
+Request Body:
+
+{
+  "query": "find battery technology startups in Southeast Asia"
+}
+
+Processing Steps:
+1. Accept natural language query
+2. Send query to DeepSeek V3 through OpenRouter
+3. Extract structured information
+4. Store:
+   - original query
+   - extracted structured data
+   - timestamp
+   - generated UUID
+5. Return stored object
+
+--------------------------------------------------
+4. STRUCTURED EXTRACTION FIELDS
+--------------------------------------------------
+
+The LLM should attempt to extract:
+
+- intent
+- industry
+- geography
+- entity_type
+- keywords
+- filters
+- summary
+
+Example Output:
+
+{
+  "intent": "startup_search",
+  "industry": "battery technology",
+  "geography": "Southeast Asia",
+  "entity_type": "startup",
+  "keywords": [
+    "battery",
+    "technology",
+    "startup"
+  ],
+  "filters": [],
+  "summary": "Search for battery technology startups operating in Southeast Asia"
+}
+
+--------------------------------------------------
+5. RESPONSE FORMAT
+--------------------------------------------------
+
+POST /queries Response:
+
+{
+  "id": "uuid",
+  "query": "find battery technology startups in Southeast Asia",
+  "structured_data": {
+    "intent": "startup_search",
+    "industry": "battery technology"
+  },
+  "created_at": "timestamp"
+}
+
+--------------------------------------------------
+6. RETRIEVE QUERY ENDPOINT
+--------------------------------------------------
+
+Route:
+GET /queries/{id}
+
+Behavior:
+Retrieve previously stored query and extracted intelligence using UUID.
+
+Example Response:
+
+{
+  "id": "uuid",
+  "query": "find battery technology startups in Southeast Asia",
+  "structured_data": {},
+  "created_at": "timestamp"
+}
+
+--------------------------------------------------
+7. NON-FUNCTIONAL REQUIREMENTS
+--------------------------------------------------
+
+Code Quality:
+- modular structure
+- type hints
+- Pydantic validation
+- clean separation of concerns
+
+Reliability:
+- handle malformed LLM responses
+- validate JSON before storing
+- proper error handling
+
+Performance:
+- lightweight API
+- low latency responses
+
+--------------------------------------------------
+8. LLM INTEGRATION REQUIREMENTS
+--------------------------------------------------
+
+Use OpenRouter API with DeepSeek V3.
+
+Environment Variable:
+
+OPENROUTER_API_KEY=your_key_here
+
+Recommended Model:
+
+deepseek/deepseek-chat-v3-0324:free
+
+--------------------------------------------------
+9. PROMPTING STRATEGY
+--------------------------------------------------
+
+System Prompt:
+
+You are an information extraction engine.
+
+Extract structured intelligence from user research queries.
+
+Return ONLY valid JSON.
+
+Fields:
+- intent
+- industry
+- geography
+- entity_type
+- keywords
+- filters
+- summary
+
+--------------------------------------------------
+10. DATABASE SCHEMA
+--------------------------------------------------
+
+Table Name:
+queries
+
+Fields:
+- id
+- query
+- structured_data
+- created_at
+
+--------------------------------------------------
+11. PROJECT STRUCTURE
+--------------------------------------------------
+
+project/
+
+├── main.py
+├── database.py
+├── models.py
+├── schemas.py
+├── services/
+│   └── llm_service.py
+├── routes/
+│   └── queries.py
+├── .env
+├── requirements.txt
+└── README.md
+
+--------------------------------------------------
+12. README REQUIREMENTS
+--------------------------------------------------
+
+Include:
+- setup instructions
+- how to run server
+- sample curl request
+- architecture summary
+- one improvement that would be added with more time
+
+--------------------------------------------------
+13. FUTURE IMPROVEMENTS
+--------------------------------------------------
+
+- async LLM processing
+- PostgreSQL support
+- authentication
+- query analytics
+- vector search
+- retry mechanism for invalid JSON
+- streaming responses
+
+--------------------------------------------------
+14. EXPECTED OUTCOME
+--------------------------------------------------
+
+A working FastAPI backend with:
+- POST endpoint
+- GET endpoint
+- LLM-powered structured extraction
+- persistent storage
+- clean architecture
+- production-style code organization
